@@ -22,19 +22,19 @@ public class KakaoBookApi {
 
     // 책 검색 메서드
     public static List<Book> searchBooks(String title) throws IOException {
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(API_BASE_URL).newBuilder();
-        urlBuilder.addQueryParameter("query", title);
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(API_BASE_URL).newBuilder();  // URL을 연결하는 객체 생성
+        urlBuilder.addQueryParameter("query", title);   //  API에 질의할 항목과 타겟을 전달, 질의할 때 KakaoAPI에서 필수로 필요한 구문 "query"
 
-        Request request = new Request.Builder()
+        Request request = new Request.Builder() // 서버에 요청하는 객체
                 .url(urlBuilder.build())
-                .addHeader("Authorization", "KakaoAK " + API_KEY)
-                .build();
+                .addHeader("Authorization", "KakaoAK " + API_KEY)   // Kakao API 인증 정보 전달
+                .build();   // 요청을 빌드 후 서버에 요청
 
-        try(Response response = client.newCall(request).execute()) {
-            if(!response.isSuccessful()) throw new IOException("Requeset failed: " + response);
+        try(Response response = client.newCall(request).execute()) {    // OkHttpClient 라이브러리, newCall 메서드로 요청을 실행 후 응답을 받는 객체
+            if(!response.isSuccessful()) throw new IOException("Request failed: " + response);
 
-            JsonObject jsonResponse = gson.fromJson(response.body().charStream(), JsonObject.class);
-            JsonArray documents = jsonResponse.getAsJsonArray("documents");
+            JsonObject jsonResponse = gson.fromJson(response.body().charStream(), JsonObject.class);    // Responce.body는 요청의 응답으로 JSON 형식의 데이터를 의미, 이것을 charStream으로 변경한 후 JSON로 변환
+            JsonArray documents = jsonResponse.getAsJsonArray("documents"); // KaKao API로 받은 책의 정보는 document 객체에 포함되어 있다.
 
             List<Book> books = new ArrayList<>();
             for(JsonElement document : documents) {
