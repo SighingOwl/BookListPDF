@@ -9,7 +9,7 @@ public class BookSearchMain {
         try {
             Scanner scanner = new Scanner(System.in);
             System.out.print("도서제목을 입력하세요: ");
-            String bookTitle = "자바";
+            String bookTitle = scanner.nextLine();
             List<Book> books = KakaoBookApi.searchBooks(bookTitle);
 
             if(books.isEmpty()) {
@@ -19,7 +19,7 @@ public class BookSearchMain {
                     System.out.println(book);
                 }
                 String fileName = "도서목록.pdf";
-                //PdfGenerator.generateBookListPdf(books, fileName);
+                PdfGenerator.generateBookListPdf(books, fileName);
                 System.out.println(fileName + " 파일이 생성되었습니다.");
             }
 
