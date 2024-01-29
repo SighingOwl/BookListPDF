@@ -15,7 +15,7 @@ import java.util.List;
 
 // Kakao API 사용
 public class KakaoBookApi {
-    private static final String API_KEY = "930e83548c0212a56b60599f78815079";    // Rest API Key
+    private static final String API_KEY = "";    // Rest API Key
     private static final String API_BASE_URL = "https://dapi.kakao.com/v3/search/book";
     private static final OkHttpClient client = new OkHttpClient();
     private static final Gson gson = new Gson();
